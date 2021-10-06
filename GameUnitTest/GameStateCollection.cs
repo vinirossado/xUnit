@@ -5,6 +5,4 @@ namespace GameUnitTest
 {
     [CollectionDefinition("GameState Collection")]
     public class GameStateCollection : ICollectionFixture<GameStateFixture> { }
-    {
-    }
 }
