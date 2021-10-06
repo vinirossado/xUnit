@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Game
 {
@@ -22,13 +23,18 @@ namespace Game
             set
             {
                 _health = value;
-                // OnpropertyChanged();
+                OnPropertyChanged();
             }
+        }
+
+        protected void OnPropertyChanged()
+        {
+            PropertyChanged?.Invoke(this, null);
         }
 
         public PlayerCharacter()
         {
-            // FirstName = GenerateRandomFirstName();
+            FirstName = GenerateRandomFirstName();
             IsNoob = true;
             CreateStartingWeapons();
         }
@@ -38,7 +44,7 @@ namespace Game
 
             var healthIncrease = CalculateHealthIncrease();
             Health += healthIncrease;
-            // OnPlayerSlept(EventArgs.Empty);
+            OnPlayerSlept(EventArgs.Empty);
         }
 
         private int CalculateHealthIncrease()
@@ -55,6 +61,28 @@ namespace Game
                 "Short Sword",
                 "Long Hammer",
             };
+        }
+
+        protected virtual void OnPlayerSlept(EventArgs e)
+        {
+            PlayerSlept?.Invoke(this, e);
+        }
+
+        public void TakeDamage(int damage) => Health = Math.Max(1, Health -= damage);
+
+        private string GenerateRandomFirstName()
+        {
+
+            var possibleNames = new[] {
+
+                "Bruce",
+                "Andrian",
+                "Nicko",
+                "Dave",
+                "Steve",
+            };
+
+            return possibleNames[new Random().Next(0, possibleNames.Length)];
         }
 
     }
