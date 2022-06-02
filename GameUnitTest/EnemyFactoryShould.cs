@@ -1,6 +1,7 @@
+using Game;
 using System;
 using Xunit;
-using Game;
+
 namespace GameUnitTest
 {
     [Trait("Category", "Enemy")]

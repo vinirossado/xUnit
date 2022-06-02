@@ -1,6 +1,5 @@
-using System;
-using Xunit;
 using Game;
+using Xunit;
 
 namespace GameUnitTest
 {
