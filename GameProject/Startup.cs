@@ -18,19 +18,15 @@ namespace xUnit
 
             //AutoMapperConfiguration.RegisterMappings(services);
             //NativeInjectorBootStrapper.RegisterServices(services);
-
-            services.AddControllers()
-              .AddNewtonsoftJson(options =>
-              {});
-
             services.AddMvc();
             services.AddLogging();
             services.AddMemoryCache();
            
             services.AddCors();
 
-          
-          
+
+            services.AddControllers();
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSignalR();
 
@@ -61,10 +57,12 @@ namespace xUnit
                 },
 
             });
+                
+            var allowedOrigins = LaunchEnvironment.AllowedOrigins.Split(',');
 
 
             app.UseCors(builder =>
-                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+                builder.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             var supportedCultures = new[] { new CultureInfo("pt-BR"), new CultureInfo("en") };
 
@@ -74,7 +72,7 @@ namespace xUnit
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseRouting();
             app.UseAuthentication();
