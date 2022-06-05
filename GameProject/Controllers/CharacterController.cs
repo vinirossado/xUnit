@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GameProject.DTO;
+using GameProject.Infra.Configs;
+using GameProject.Infra.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GameProject.Controllers
 {
@@ -6,6 +9,12 @@ namespace GameProject.Controllers
     [ApiController]
     public class CharacterController : ControllerBase
     {
+        private readonly ICharacterRepository _characterRepository;
+        public CharacterController(IDataService ds)
+        {
+            _characterRepository = ds.Characters;
+        }
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -19,8 +28,10 @@ namespace GameProject.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateOrUpdateCharacterDto dto)
         {
+            await _characterRepository.CreateCharacterAsync(dto);
+            return Ok();
         }
 
         [HttpPut("{id}")]

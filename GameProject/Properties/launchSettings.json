@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7271;http://localhost:5271",
       "environmentVariables": {
-        "DB_CONNECTION": "Server=localhost;Database=vdi;Persist Security Info=False;User Id=sa;Password=Teste@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;",
+        "DB_CONNECTION": "mongodb://localhost:27017",
+        "DB_NAME": "Game",
         "ALLOWED_ORIGINS": "localhost;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

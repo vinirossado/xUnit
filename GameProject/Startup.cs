@@ -1,8 +1,11 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using GameProject.Infra;
+using GameProject.Infra.Configs;
+using GameProject.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Configuration;
 using System.Globalization;
 
 namespace xUnit
@@ -10,18 +13,28 @@ namespace xUnit
     public class Startup
     {
 
+        private readonly IConfiguration Configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>();
+
+            services.Configure<DatabaseSettings>(
+                 Configuration.GetSection(LaunchEnvironment.DbConnection));
+
+            services.AddSingleton<MongoContext>();
+
             services.AddResponseCaching();
 
-            //AutoMapperConfiguration.RegisterMappings(services);
-            //NativeInjectorBootStrapper.RegisterServices(services);
             services.AddMvc();
             services.AddLogging();
             services.AddMemoryCache();
-           
+
             services.AddCors();
 
 
@@ -57,7 +70,7 @@ namespace xUnit
                 },
 
             });
-                
+
             var allowedOrigins = LaunchEnvironment.AllowedOrigins.Split(',');
 
 

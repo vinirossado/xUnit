@@ -1,20 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using GameProject.Models;
+using System.Collections.Generic;
 
 namespace Game
 {
     public class Warrior : Character
     {
-        public Warrior() { }
+        public Warrior()
+        {
+        }
 
-        public override double Power => 6;
+        public override double Power { get => 6; set => throw new Exception(); }
 
-        public override double Defense => 6;
+        public override double Defense { get => 6; set => throw new Exception(); }
 
-        public override double Agility => 4;
+        public override double Agility { get => 4; set => throw new Exception(); }
 
-        public override double Inteligence => 4;
+        public override double Inteligence { get => 4; set => throw new Exception(); }
 
-        public override List<Weapon> Weapons => new List<Weapon>();
-
+        public override List<Weapon> Weapons { get; set; }
+        public override Accessories Accessories { get; set; }
     }
 }

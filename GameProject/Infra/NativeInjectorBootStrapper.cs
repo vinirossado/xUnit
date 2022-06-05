@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using GameProject.Infra.Configs;
+using GameProject.Infra.Repository;
 
 namespace GameProject.Infra
 {
@@ -6,16 +8,13 @@ namespace GameProject.Infra
     {
         public static void LoadService(ContainerBuilder builder)
         {
-
-            //builder.RegisterType<AttractionService>().As<IAttractionService>().InstancePerLifetimeScope();
-
-
+            builder.RegisterType<DataService>().As<IDataService>().InstancePerLifetimeScope();
         }
 
         public static void LoadRepository(ContainerBuilder builder)
         {
 
-            //builder.RegisterType<AttractionRepository>().As<IAttractionRepository>().InstancePerLifetimeScope();
+            //builder.RegisterType<CharacterRepository>().As<ICharacterRepository>().InstancePerLifetimeScope();
         }
 
         public static void LoadOthers(ContainerBuilder builder)
